@@ -1,0 +1,4 @@
+# Ignore __pycache__
+__pycache__/
+# Ignore db.sqlite3
+db.sqlite3
