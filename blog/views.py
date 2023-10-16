@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import Post
 
 
@@ -12,6 +12,11 @@ class PostListView(ListView):
     model = Post
     template_name = 'blog/home.html'  # <app>/<model>_<viewtype>.html
     context_object_name = 'posts'  # default is object_list
+    ordering = ['-date_posted']  # order posts from newest to oldest
+
+
+class PostDetailView(DetailView):
+    model = Post
 
 
 def about(request):
