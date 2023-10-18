@@ -24,7 +24,7 @@ class UserPostListView(ListView):
     context_object_name = 'posts'  # default is object_list
     paginate_by = 5  # number of posts per page
 
-    def get_query_set(self):
+    def get_queryset(self):
         # get the user from the url
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         # return the posts of the user
