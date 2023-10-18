@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User  # to get the user from the url
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
 
@@ -15,6 +16,19 @@ class PostListView(ListView):
     context_object_name = 'posts'  # default is object_list
     ordering = ['-date_posted']  # order posts from newest to oldest
     paginate_by = 5  # number of posts per page
+
+
+class UserPostListView(ListView):
+    model = Post
+    template_name = 'blog/user_posts.html'  # <app>/<model>_<viewtype>.html
+    context_object_name = 'posts'  # default is object_list
+    paginate_by = 5  # number of posts per page
+
+    def get_query_set(self):
+        # get the user from the url
+        user = get_object_or_404(User, username=self.kwargs.get('username'))
+        # return the posts of the user
+        return Post.objects.filter(author=user).order_by('-date_posted')
 
 
 class PostDetailView(DetailView):
@@ -57,6 +71,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             # if the current user is the author of the post
             return True
         return False
+
 
 def about(request):
     return render(request, 'blog/about.html', {'title': 'About'})
