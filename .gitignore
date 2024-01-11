@@ -4,3 +4,5 @@ __pycache__/
 db.sqlite3
 # Ignore media directory
 media/
+# .DS_Store (for Mac users)
+.DS_Store
