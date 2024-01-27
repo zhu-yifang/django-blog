@@ -1,4 +1,4 @@
-"""django_project URL Configuration
+"""django_blog URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.1/topics/http/urls/
@@ -55,7 +55,9 @@ urlpatterns = [
     ),
     path(
         "password-reset-complete/",
-        auth_views.PasswordResetCompleteView.as_view(template_name="users/password_reset_complete.html"),
+        auth_views.PasswordResetCompleteView.as_view(
+            template_name="users/password_reset_complete.html"
+        ),
         name="password_reset_complete",
     ),
     path("", include("blog.urls")),
