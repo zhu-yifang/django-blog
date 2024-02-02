@@ -1,3 +1,7 @@
+# Static files
+media/
+staticfiles/
+
 # Mac
 .DS_Store
 
